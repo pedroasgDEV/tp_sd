@@ -1,13 +1,9 @@
-const sessionAuth = (req, res, next, getTestingValue) => {
-    const token = req.headers.authorization;
+module.exports = (req, res, next) => {
+    const token = req.headers['authorization'];
 
-    if (token === 'Bearer 123') {
-        next(); 
+    if (token === 'meu-token-secreto') {
+        next();
     } else {
-        res.status(401).json({ message: 'Unauthorized' });
+        res.status(403).send('Forbidden');
     }
-};
-
-module.exports = {
-    sessionAuth
 };

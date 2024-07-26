@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gerar Personas</title>
+    <link rel="stylesheet" href="assets/styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Gerar Personas</h1>
+        <form id="personaForm">
+            <div class="form-group">
+                <label for="numPersonas">Qual o número de personas desejadas?*</label>
+                <input type="number" id="numPersonas" name="numPersonas" min="1" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="region">Escolha a região:</label>
+                <select id="region" name="region">
+                    <option value="">Selecione uma região</option>
+                    <option value="norte">Norte</option>
+                    <option value="nordeste">Nordeste</option>
+                    <option value="centro-oeste">Centro-Oeste</option>
+                    <option value="sudeste">Sudeste</option>
+                    <option value="sul">Sul</option>
+                </select>
+            </div>
+            
+            <div class="form-group">
+                <label for="state">Escolha o estado:</label>
+                <select id="state" name="state" disabled>
+                    <option value="">Selecione um estado</option>
+                    <!-- Add states dynamically based on region -->
+                </select>
+            </div>
+            
+            <button type="submit">Gerar Personas</button>
+        </form>
+    </div>
+    <script src="assets/script.js"></script>
+</body>
+</html>
