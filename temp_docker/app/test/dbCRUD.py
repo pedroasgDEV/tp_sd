@@ -1,5 +1,5 @@
-from ..models.connection import MongoDB
-from ..models.collections.people import PeopleCollection
+from ..utils.database.connection import MongoDB
+from ..utils.database.collections.people import PeopleCollection
 
 class CRUDtest:
     def __init__(self):

@@ -1,4 +1,4 @@
-from ..models.connection import MongoDB
+from ..utils.database.connection import MongoDB
 
 class DBconnectionTest:
     def __init__(self):

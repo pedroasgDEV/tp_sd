@@ -1,41 +1,31 @@
 from flask import Blueprint, request, jsonify, current_app
-from bson.objectid import ObjectId
+from app.utils.database.collections.people import PeopleCollection
 
 person_bp = Blueprint('person', __name__)
+col = PeopleCollection(current_app.config["db"])
 
-@person_bp.route('/', methods=['GET'])
-def get_all_person():
-    person = current_app.db.person.find()
-    result = [{'_id': str(item['_id']), 'name': item['name']} for item in person]
+@person_bp.route('/<int:qnt>', methods=['GET'])
+def get_random_persons(qnt):
+    result = col.select_many_random(qnt)
     return jsonify(result)
-
-@person_bp.route('/<item_id>', methods=['GET'])
-def get_item(item_id):
-    item = current_app.db.person.find_one({'_id': ObjectId(item_id)})
-    if item:
-        return jsonify({'_id': str(item['_id']), 'name': item['name']})
-    return jsonify({'error': 'Item not found'}), 404
 
 @person_bp.route('/', methods=['POST'])
 def create_item():
     data = request.get_json()
-    result = current_app.db.person.insert_one({'name': data['name']})
+    result = col.insert_document(data)
     return jsonify({'_id': str(result.inserted_id)}), 201
 
 @person_bp.route('/<item_id>', methods=['PUT'])
 def update_item(item_id):
     data = request.get_json()
-    result = current_app.db.person.update_one(
-        {'_id': ObjectId(item_id)},
-        {'$set': {'name': data['name']}}
-    )
+    result = col.edit_registry(item_id, data)
     if result.modified_count:
         return jsonify({'message': 'Item updated'})
     return jsonify({'error': 'Item not found'}), 404
 
 @person_bp.route('/<item_id>', methods=['DELETE'])
 def delete_item(item_id):
-    result = current_app.db.person.delete_one({'_id': ObjectId(item_id)})
+    result = col.delete_registry(item_id)
     if result.deleted_count:
         return jsonify({'message': 'Item deleted'})
     return jsonify({'error': 'Item not found'}), 404
