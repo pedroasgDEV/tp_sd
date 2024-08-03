@@ -1,6 +1,6 @@
 from bson.objectid import ObjectId
 from datetime import timedelta
-from ..dp_config import mongodb_config
+from app.config import mongodb_config
 
 class PeopleCollection:
     def __init__(self, database):
@@ -29,13 +29,13 @@ class PeopleCollection:
 
         # Execute the agregation
         result = collection.aggregate(pipeline)
-        data = []
-
-        # Append value
-        for docs in result:
-            data.append(docs)
-
-        return data
+        result = list(result)
+        
+        #ObjectID precisa ser uma string
+        for person in result:
+            person["_id"] = str(person["_id"])
+            
+        return result
 
     #UPDATE
     def edit_registry(self, id, doc):

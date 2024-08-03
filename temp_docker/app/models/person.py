@@ -1,5 +1,5 @@
-from .cpf import Cpf
-from .address import Address
+from app.models.cpf import Cpf
+from app.models.address import Address
 
 class Person:
     def __init__(self, name="NONAME", email="NOEMAIL", phone="NOCELL", 

@@ -1,6 +1,6 @@
 import pytest
-from .dbConnection import DBconnectionTest
-from .dbCRUD import CRUDtest
+from app.test.dbConnection import DBconnectionTest
+from app.test.dbCRUD import CRUDtest
 
 dbTest = DBconnectionTest()
 
