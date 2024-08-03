@@ -1,7 +1,8 @@
-from dotenv import load_dotenv
-import os
-
-load_dotenv()
-
-class Config:
-    MONGODB_URI = os.getenv('MONGODB_URI')
+mongodb_config = {
+    "DATABASE": "tp_sd1",
+    "COLLECTION_MAIN": "people",
+    "USERNAME": "pedroasg",
+    "PASSWORD": "TiVxYL69kZGFBp8Z",
+    "PROJECT": "person-data-generator",
+    "APP": "person-data-generator"
+}
