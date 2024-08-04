@@ -2,7 +2,6 @@ import smtplib
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 from app.config import send_email as send
-from app.config import recv_email as recv
 
 
 class SendEmail:
@@ -20,7 +19,7 @@ class SendEmail:
     
     def send(self, change, change_type):
         self.__email["Subject"] = "MongoDB Change Notification: " + change_type
-        body = "A change was detected in the MongoDB collection:\n\n" + change
+        body = "A change was detected in the MongoDB collection:\n\n" + str(change)
         self.__email.attach(MIMEText(body, 'plain'))
         
         self.__server.starttls()
@@ -28,9 +27,6 @@ class SendEmail:
         mail = self.__email.as_string()
         self.__server.sendmail(self.__send_email, self.__recv_email, mail)
         self.__server.quit()
-        
-email = SendEmail(recv["EMAIL"])
-email.send("HELLO WOLRD", "TEST")
         
         
         
