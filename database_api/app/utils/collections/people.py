@@ -1,5 +1,4 @@
 from bson.objectid import ObjectId
-from datetime import timedelta
 from app.config import mongodb_config
 
 class PeopleCollection:

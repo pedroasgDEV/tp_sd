@@ -1,4 +1,3 @@
-import pytest
 from app.test.dbConnection import DBconnectionTest
 from app.test.dbCRUD import CRUDtest
 

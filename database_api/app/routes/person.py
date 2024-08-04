@@ -1,7 +1,6 @@
 from flask import Blueprint, request, jsonify
-from app.utils.database.collections.people import PeopleCollection
-from app.utils.database.connection import MongoDB
-import json
+from app.utils.collections.people import PeopleCollection
+from app.utils.connectDB import MongoDB
 
 person_bp = Blueprint('person_bp', __name__)
 
