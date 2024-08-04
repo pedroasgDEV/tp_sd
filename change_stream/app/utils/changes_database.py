@@ -1,23 +1,23 @@
 from pymongo import MongoClient
 from bson.objectid import ObjectId
-from app.config import mongodb_config
+from app.config import changes_mongodb
 from app.utils.database import MongoDB
 
 class ChangesDB:
     def __init__(self):
         super().__init__()
         self.__link = "mongodb+srv://{}:{}@{}.ckosrqe.mongodb.net/?retryWrites=true&w=majority&appName={}".format(
-            mongodb_config["USERNAME"],
-            mongodb_config["PASSWORD"],
-            mongodb_config["PROJECT"],
-            mongodb_config["APP"]
+            changes_mongodb["USERNAME"],
+            changes_mongodb["PASSWORD"],
+            changes_mongodb["PROJECT"],
+            changes_mongodb["APP"]
         )
         self.__client = None
         self.__database = None
         
     def connectDB(self):
         self.__client = MongoClient(self.__link)
-        self.__database = self.__client[mongodb_config["CHANGES_DATABASE"]]
+        self.__database = self.__client[changes_mongodb["DATABASE"]]
         
     def get_client(self):
         return self.__client
