@@ -12,9 +12,10 @@ class MongoDB:
         self.__client = None
         self.__database = None
         
+        
     def connectDB(self):
         self.__client = MongoClient(self.__link)
-        self.__database = self.__client[mongodb_config["DATABASE"]]
+        self.__database = self.get_client()[mongodb_config["DATABASE"]]
                 
     def get_client(self):
         return self.__client

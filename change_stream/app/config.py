@@ -1,6 +1,6 @@
 mongodb_config = {
     "DATABASE": "tp_sd1",
-    "COLLECTION_DATABASE": "people",
+    "COLLECTION_MAIN": "people",
     "CHANGES_DATABASE": "changes_db",
     "COLLECTION_POST": "post",
     "COLLECTION_PUT": "put",
