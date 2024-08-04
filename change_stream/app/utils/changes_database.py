@@ -15,7 +15,7 @@ class ChangesDB(MongoDB):
         
         data = collection.insert_one(doc)
         
-        return data
+        return data.inserted_id
     
     def clean(self):
         collections = self.__database.list_collection_names()
