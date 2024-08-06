@@ -1,7 +1,7 @@
-from app.utils.connectDB import MongoDB
-from app.config import mongodb_config
+from app.utils.database import MongoDB
+from app.config import main_mongodb
 
-class DBconnectionTest:
+class MongoDBtest:
     def __init__(self):
         self.__mongo = MongoDB()
         self.__mongo.connectDB()
@@ -10,11 +10,11 @@ class DBconnectionTest:
     def databaseTest(self):
         dblist = self.__mongo.get_client().list_database_names()
 
-        if mongodb_config["DATABASE"] in dblist: return True
+        if main_mongodb["DATABASE"] in dblist: return True
         else: return False
     
     def mainCollectionTest(self):
         collectionList = self.__mongo.get_database().list_collection_names()
         
-        if mongodb_config["COLLECTION_MAIN"] in collectionList: return True
+        if main_mongodb["COLLECTION_MAIN"] in collectionList: return True
         else: return False
