@@ -17,38 +17,33 @@ class DB_Listener:
         
         self.__email = SendEmail(recv_email["EMAIL"])
         
-    def post_listener(self):
-        pipeline = [{'$match': {'operationType': 'insert'}}]
-        
-        with self.__collection.watch(pipeline) as stream:
-            for change in stream:
-                self.__changesDB.create(changes_mongodb["COLLECTION_POST"], change)
-                self.__email.send(change, "POST")
-                
-    def put_listener(self):
-        pipeline = [{'$match': {'operationType': 'update'}}]
-        
-        with self.__collection.watch(pipeline) as stream:
-            for change in stream:
-                self.__changesDB.create(changes_mongodb["COLLECTION_PUT"], change)
-                self.__email.send(change, "PUT")
-    
-    def delete_listener(self):
-        pipeline = [{'$match': {'operationType': 'delete'}}]
-        
-        with self.__collection.watch(pipeline) as stream:
-            for change in stream:
-                self.__changesDB.create(changes_mongodb["COLLECTION_DELETE"], change)
-                self.__email.send(change, "DELETE")
-                
-    def cleanAllChanges(self):
-        return self.__changesDB.clean()
+    def listener(self):
+        try:
+            with self.__collection.watch() as stream:
+                for change in stream:
+                    if change["operationType"] == "insert":
+                        self.__changesDB.create(changes_mongodb["COLLECTION_POST"], change)
+                        #self.__email.send(change, "POST")
+                        
+                    elif change["operationType"] == "update":
+                        self.__changesDB.create(changes_mongodb["COLLECTION_PUT"], change)
+                        #self.__email.send(change, "PUT")
+                        
+                    elif change["operationType"] == "delete":
+                        self.__changesDB.create(changes_mongodb["COLLECTION_DELETE"], change)
+                        #self.__email.send(change, "DELETE")
+                        
+        except KeyboardInterrupt:
+            print("Interrupted by user, shutting down...")
+            
+        finally:
+            self.__email.close()
 
 
 test = DB_Listener()    
-while True:
-    test.post_listener()
-    time.sleep(5)
+
+test.listener()
+time.sleep(5)
         
         
         
