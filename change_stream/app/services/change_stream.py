@@ -38,12 +38,6 @@ class DB_Listener:
             
         finally:
             self.__email.close()
-
-
-test = DB_Listener()    
-
-test.listener()
-time.sleep(5)
         
         
         
