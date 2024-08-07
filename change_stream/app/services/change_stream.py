@@ -21,6 +21,8 @@ class DB_Listener:
         try:
             with self.__collection.watch() as stream:
                 for change in stream:
+                    print(change)
+                    
                     if change["operationType"] == "insert":
                         self.__changesDB.create(changes_mongodb["COLLECTION_POST"], change)
                         #self.__email.send(change, "POST")
