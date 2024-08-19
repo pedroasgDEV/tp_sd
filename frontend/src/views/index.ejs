@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Formulário de Pessoas</title>
+  <link rel="stylesheet" type="text/css" href="../assets/css/style.css">
+</head>
+<body>
+  <div class="container">
+    <h1>Escolha quantas pessoas serão mostradas</h1>
+    <div class="forms">
+      <form action="/" method="POST">
+        <label for="count">Número de pessoas:</label>
+        <input type="number" id="count" name="count" min="1" max="1200" required>
+        <button type="submit">Mostrar</button>
+      </form>
+      <a href="/createPersona"><button>Criar Persona</button></a>
+    </div>
+    
+    <% if (people.length > 0) { %>
+      <h2>Lista de Pessoas</h2>
+      <ul class="people-list">
+        <% people.forEach(person => { %>
+          <a href="/updatePersona/:<%= person.mongo_id %>"><li class="person">
+            <img src="<%= person.img %>" alt="<%= person.name %>">
+            <div class="person-info">
+                <h3><%= person.name %></h3>
+                <p><%= person.toString() %></p>
+            </div>
+          </li></a>
+        <% }); %>
+      </ul>
+    <% } %>
+  </div>
+</body>
+</html>

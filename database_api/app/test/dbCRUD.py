@@ -26,6 +26,12 @@ class CRUDtest:
         if len(docs_read) == qnt: return True
         else: return False
         
+    def readOneTest(self):
+        doc_read = self.___collection.select_one(self.doc_UD_id)
+
+        if doc_read is not None: return True
+        else: return False
+        
     def updateTest(self, doc):
         doc_update = self.___collection.edit_registry(self.__doc_UD_id, doc)
         

@@ -43,6 +43,9 @@ else: print("   . CREATE operation is't work :(")
 if crudTest.readTest(100): print("   . READ operation works :)")
 else: print("   . READ operation is't work :(")
 
+if crudTest.readOneTest(): print("   . READ_ONE operation works :)")
+else: print("   . READ_ONE operation is't work :(")
+
 if crudTest.updateTest(doc_update): print("   . UPDATE operation works :)")
 else: print("   . UPDATE operation is't work :(")
 
