@@ -36,6 +36,15 @@ class PeopleCollection:
             person["_id"] = str(person["_id"])
             
         return result
+    
+    def select_one(self, id):
+        
+        collection = self.__database.get_collection(self.__collection_name)
+
+        result = collection.find_one({"_id": ObjectId(id)})
+        result["_id"] = str(result["_id"])
+
+        return result
 
     #UPDATE
     def edit_registry(self, id, doc):

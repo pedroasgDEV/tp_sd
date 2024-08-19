@@ -16,6 +16,11 @@ def get_random_persons(qnt):
     result = col.select_many_random(qnt)
     return jsonify(result), 200
 
+@person_bp.route('/id:<id>', methods=['GET'])
+def get_one_person(id):
+    result = col.select_one(id)
+    return jsonify(result), 200
+
 @person_bp.route('/', methods=['POST'])
 def create_item():
     data = request.get_json()
