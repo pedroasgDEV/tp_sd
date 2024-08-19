@@ -1,7 +1,6 @@
 from flask import Blueprint, request, jsonify
-from app.utils.database.collections.people import PeopleCollection
-from app.utils.database.connection import MongoDB
-import json
+from app.utils.collections.people import PeopleCollection
+from app.utils.connectDB import MongoDB
 
 person_bp = Blueprint('person_bp', __name__)
 
@@ -14,6 +13,11 @@ col = PeopleCollection(db)
 @person_bp.route('/<int:qnt>', methods=['GET'])
 def get_random_persons(qnt):
     result = col.select_many_random(qnt)
+    return jsonify(result), 200
+
+@person_bp.route('/id:<id>', methods=['GET'])
+def get_one_person(id):
+    result = col.select_one(id)
     return jsonify(result), 200
 
 @person_bp.route('/', methods=['POST'])

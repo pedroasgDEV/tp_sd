@@ -1,16 +1,15 @@
-import pytest
-from app.test.dbConnection import DBconnectionTest
-from app.test.dbCRUD import CRUDtest
+from app.test.dbConnection import MongoDBtest
+from app.test.changesDbConnection import ChangesDBtest
 
-dbTest = DBconnectionTest()
+dbTest = MongoDBtest()
 
-if dbTest.databaseTest(): print("   . Database connection works :)")
-else: print("   . Database connection isn't work :(")
+if dbTest.databaseTest(): print("   . Main Database connection works :)")
+else: print("   . Main Database connection isn't work :(")
 
 if dbTest.mainCollectionTest(): print("   . Main collection connection works :)")
 else: print("   . Main collectione connection isn't work :(")
 
-crudTest = CRUDtest()
+changesDbTest = ChangesDBtest()
 
 doc = {
     "name": "Pedro Augusto Sousa Gonçalves",
@@ -33,19 +32,17 @@ doc = {
     }
 }
 
-doc_update = {
-    "email": "email@falso.com"
-}
+if changesDbTest.databaseTest(): print("   . Changes Database connection works :)")
+else: print("   . Main Database connection isn't work :(")
 
+if changesDbTest.collectionsTest(): print("   . Changes collections connection works :)")
+else: print("   . Main collectione connection isn't work :(")
 
-if crudTest.createTest(doc): print("   . CREATE operation works :)")
+if changesDbTest.createTest(doc): print("   . CREATE operation works :)")
 else: print("   . CREATE operation is't work :(")
 
-if crudTest.readTest(100): print("   . READ operation works :)")
+if changesDbTest.readOneTest(): print("   . READ operation works :)")
 else: print("   . READ operation is't work :(")
 
-if crudTest.updateTest(doc_update): print("   . UPDATE operation works :)")
-else: print("   . UPDATE operation is't work :(")
-
-if crudTest.deleteTest(): print("   . DELETE operation works :)")
-else: print("   . DELETE operation is't work :(")
+if changesDbTest.cleanTest(): print("   . CLEAN operation works :)")
+else: print("   . CLEAN operation is't work :(")

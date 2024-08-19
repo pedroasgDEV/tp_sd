@@ -1,5 +1,5 @@
-from app.utils.database.connection import MongoDB
-from app.utils.database.collections.people import PeopleCollection
+from app.utils.connectDB import MongoDB
+from app.utils.collections.people import PeopleCollection
 
 class CRUDtest:
     def __init__(self):
@@ -8,14 +8,14 @@ class CRUDtest:
         self.___mongo.connectDB()
         self.___database = self.___mongo.get_database()
         self.___collection = PeopleCollection(self.___database)
-        self.doc_UD_id = None
+        self.__doc_UD_id = None
         print("___________________ Database CRUD test ___________________")
     
     def createTest(self, doc):
         doc_insert = self.___collection.insert_document(doc)
 
         if doc_insert.acknowledged: 
-            self.doc_UD_id = doc_insert.inserted_id
+            self.__doc_UD_id = doc_insert.inserted_id
             return True
         
         else: return False
@@ -26,14 +26,20 @@ class CRUDtest:
         if len(docs_read) == qnt: return True
         else: return False
         
+    def readOneTest(self):
+        doc_read = self.___collection.select_one(self.doc_UD_id)
+
+        if doc_read is not None: return True
+        else: return False
+        
     def updateTest(self, doc):
-        doc_update = self.___collection.edit_registry(self.doc_UD_id, doc)
+        doc_update = self.___collection.edit_registry(self.__doc_UD_id, doc)
         
         if doc_update.modified_count == 1: return True
         else: return False
         
     def deleteTest(self):
-        doc_del = self.___collection.delete_registry(self.doc_UD_id)
+        doc_del = self.___collection.delete_registry(self.__doc_UD_id)
 
         if doc_del.deleted_count == 1:  return True
         else: return False
