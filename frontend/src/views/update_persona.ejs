@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Update Persona</title>
+    <link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Update Persona</h1>
+        <a href="/delete/:<%= person.mongo_id %>""><button class="delete-button">Delete User</button></a>
+        <form id="personaForm" action="/updatePersona/:<%= person.mongo_id %>" method="POST">
+            <label for="name">Nome</label>
+            <input type="text" id="name" name="name" value="<%= person.name %>">
+
+            <label for="email">Email</label>
+            <input type="text" id="email" name="email" value="<%= person.email %>">
+
+            <label for="phone">Número de Telefone</label>
+            <input type="text" id="phone" name="phone" value="<%= person.phone %>">
+
+            <label for="cpf">CPF</label>
+            <input type="text" id="cpf" name="cpf" value="<%= person.cpf.cpf %>">
+
+            <label for="number">Número da casa</label>
+            <input type="text" id="number" name="number" value="<%= person.address.number %>">
+            
+            <label for="street">Rua</label>
+            <input type="text" id="street" name="street" value="<%= person.address.street %>">
+            
+            <label for="city">Cidade</label>
+            <input type="text" id="city" name="city" value="<%= person.address.city %>">
+            
+            <label for="state">Estado</label>
+            <input type="text" id="state" name="state" value="<%= person.address.state %>">
+            
+            <label for="country">País</label>
+            <input type="text" id="country" name="country" value="<%= person.address.country %>">
+            
+            <label for="postcode">CEP</label>
+            <input type="text" id="postcode" name="postcode" value="<%= person.address.postcode %>">
+            
+            <button type="submit">Atualizar</button>
+        </form>
+    </div>
+    <script src="../public_assets/script.js"></script>
+</body>
+</html>
